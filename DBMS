@@ -1,0 +1,10 @@
+create database student_activity;
+use student_activity;
+create table department(dept_id varchar(10),d_contact varchar(10),hod_fid varchar(10),primary key(dept_id));
+create table faculty(fid varchar(10),fname varchar(30),dept_id varchar(10),primary key(fid),foreign key(dept_id) references department(dept_id));
+create table student(usn varchar(10), sname varchar(30),email varchar(30),sem int,dept_id varchar(10),fid varchar(10),primary key(usn),foreign key(dept_id) references department(dept_id),foreign key(fid) references faculty(fid));
+create table student_mobile(usn varchar(10),mobile varchar(10),primary key(usn,mobile),foreign key(usn) references student(usn));
+create table meeting(m_id varchar(10),m_date date,purpose varchar(50),outcome varchar(50),fid varchar(10),primary key(m_id),foreign key(fid) references faculty(fid));
+create table organisation(org_name varchar(30),address varchar(30),o_type varchar(30));
+create table activity(a_id varchar(10),a_date date,duration int,a_name varchar(30),points int,a_location varchar(30),org_name varchar(30),primary key(a_id));
+create table participated(a_id varchar(10),usn varchar(10),primary key(a_id,usn),foreign key(a_id) references activity(a_id),foreign key(usn) references student(usn));
